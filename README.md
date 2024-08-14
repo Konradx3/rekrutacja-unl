@@ -35,3 +35,9 @@ Tutaj już standardowo, przechodzimy do katalogu projektu i zaciągamy gita ```g
 Przechodzimy do terminala i wykonujemy komendę ```composer install```.
 
 W tym miejscu strona powinna się uruchomić.
+
+## Testy
+Testy można uruchomić komendą
+```
+php artisan test
+```
