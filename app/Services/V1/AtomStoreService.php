@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\V1;
 
-use Exception;
 use Mtownsend\XmlToArray\XmlToArray;
 use SoapClient;
 

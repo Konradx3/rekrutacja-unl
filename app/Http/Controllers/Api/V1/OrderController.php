@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\OrderCollection;
-use App\Http\Resources\OrderResource;
-use App\Services\AtomStoreService;
+use App\Http\Resources\V1\OrderCollection;
+use App\Http\Resources\V1\OrderResource;
+use App\Services\V1\AtomStoreService;
 use App\Traits\ApiResponses;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class OrderController extends Controller
 {
