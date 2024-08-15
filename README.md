@@ -37,7 +37,43 @@ Tutaj już standardowo, przechodzimy do katalogu projektu i zaciągamy gita ```g
 
 Przechodzimy do terminala i wykonujemy komendę ```composer install```.
 
+Komendy które należy wykonać
+```php
+php artisan migrate
+php artisan db:seed
+php artisan scribe:generate
+```
+
 W tym miejscu strona powinna się uruchomić.
+
+## Dokumentacja
+
+Link do dokumentacji znajdziesz pod ścieżką /docs
+```http://unlimitech.localhost/docs```
+
+Tworzone są 2 konta użytkowników, jeden z uprawnieniami admina a drugi bez.
+```
+// Admin user
+User::create([
+    'name' => 'Admin',
+    'email' => 'admin@example.com',
+    'password' => bcrypt('password'),
+    'role' => 'admin',
+]);
+
+// Employee user
+User::create([
+    'name' => 'Employee',
+    'email' => 'employee@example.com',
+    'password' => bcrypt('password'),
+]);
+```
+Logujemy się używając emaila i hasła
+```http://unlimitech.localhost/docs/#authentication-POSTapi-login```
+otrzymując Bearer Token którym się autoryzujemy.
+
+Reszta jest tutaj ```http://unlimitech.localhost/docs/#managing-orders```
+
 
 ## Testy
 Testy można uruchomić komendą
