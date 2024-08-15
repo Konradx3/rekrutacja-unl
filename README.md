@@ -19,6 +19,9 @@ Konfiguracja dla pakietu xampp. Ścieżka do pliku ```C:\xampp\apache\conf\extra
 </VirtualHost>
 ```
 
+## Konfiguracja php.ini
+- Należy włączyć rozszerzenie soap w php.ini ```extension=soap```
+
 Konfiguracja hosts w windows w pliku ```C:\Windows\System32\drivers\etc```.
 ```
 # Rekrutacja Konrad Konarski Unlimitech
