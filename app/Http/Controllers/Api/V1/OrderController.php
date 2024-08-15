@@ -39,6 +39,13 @@ class OrderController extends Controller
      **/
     public function show(int $id)
     {
-        return OrderResource::collection(['awdawd']);
+        $data = $this->atomStore->getOrderById($id);
+
+        if (isset($data['error']))
+        {
+            return $this->error($data['error'], $data['status']);
+        }
+
+        return OrderResource::collection($data);
     }
 }

@@ -35,9 +35,35 @@ class AtomStoreService
             ];
         }
 
-        $responseXml = $this->client->GetOrdersSpecified($this->authData, '', 0, 10);
+        $responseXml = $this->client->GetOrdersSpecified($this->authData, '', 0, 0, 0, '', '');
         return $this->formatResponse($responseXml);
     }
+
+    public function getOrderById(int $orderId): array
+    {
+        if ($this->client == null)
+        {
+            return [
+                'error' => 'Invalid Credentials',
+                'status' => 401,
+            ];
+        }
+
+        $extraFilter = sprintf('id|%s', $orderId);
+        $responseXml = $this->client->GetOrdersSpecified($this->authData, '', 0, 10, 0, '', '', $extraFilter);
+        $responseArray = $this->formatResponse($responseXml);
+
+        if (empty($responseArray))
+        {
+            return [
+                'error' => 'Resource not found',
+                'status' => 404,
+            ];
+        }
+
+        return $responseArray;
+    }
+
 
     public function formatResponse(string $xmlString): array
     {

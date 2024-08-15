@@ -14,16 +14,28 @@ class OrderResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        if (isset($this['products']) && is_array($this['products']))
+        {
+            $totalProducts = count($this['products']);
+            $products = array_map(function ($product) {
+                return [
+                    'code' => $product['code'],
+                    'quantity' => $product['quantity'],
+                    'images' => 'links',
+                ];
+            }, $this['products']);
+        }
+
         return [
             'type' => 'order',
             'id' => $this['id'],
-            'external_id' => $this['externalId'],
+            'external_id' => $this['externalId'] ?? '',
             'confirmed' => $this['confirmed'],
-            'shipping_method' => $this['paymentMethodId'],
-            'total_products' => '$this->total_products',
-            'products' => [
-                'product_list' => 'products',
-            ],
+            'shipping_method' => $this['shippingMethod'],
+
+            'total_products' => $totalProducts ?? 0,
+            'products' => $products ?? [],
+
 
             $this->mergeWhen($request->user()->isAdmin(), [
                 'currency' => $this['currency'],
@@ -33,21 +45,26 @@ class OrderResource extends JsonResource
             ]),
 
             $this->mergeWhen($request->routeIs('orders.show'), [
-                'shipping_details' => [
-                    'shipping_first_name' => '$this->currency',
-                    'shipping_last_name' => '$this->shipping_last_name',
-                    'shipping_company' => '$this->shipping_company',
-                    'shipping_street' => '$this->shipping_street',
-                    'shipping_street_number_1' => '$this->shipping_street_number_1',
-                    'shipping_street_number_2' => '$this->shipping_street_number_2',
-                    'shipping_post_code' => '$this->shipping_post_code',
-                    'shipping_city' => '$this->shipping_city',
-                    'shipping_state_code' => '$this->shipping_state_code',
-                    'shipping_state' => '$this->shipping_state',
-                    'shipping_country_code' => '$this->shipping_country_code',
-                    'shipping_country' => '$this->shipping_country',
-                ],
+                'shipping_details' => $this->getShippingDetails($this['client']),
             ]),
+        ];
+    }
+
+    private function getShippingDetails(array $client): array
+    {
+        return [
+            'shipping_first_name' => $client['shippingFirstName'],
+            'shipping_last_name' => $client['shippingLastName'],
+            'shipping_company' => $client['shippingCompany'],
+            'shipping_street' => $client['shippingStreet'],
+            'shipping_street_number_1' => $client['shippingStreetNumber1'],
+            'shipping_street_number_2' => $client['shippingStreetNumber2'],
+            'shipping_post_code' => $client['shippingPostCode'],
+            'shipping_city' => $client['shippingCity'],
+            'shipping_state_code' => $client['shippingState'],
+            'shipping_state' => $client['shippingState'],
+            'shipping_country_code' => $client['shippingCountryCode'],
+            'shipping_country' => $client['shippingCountry'],
         ];
     }
 }
