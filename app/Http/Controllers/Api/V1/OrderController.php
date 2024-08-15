@@ -7,6 +7,8 @@ use App\Http\Resources\V1\OrderCollection;
 use App\Http\Resources\V1\OrderResource;
 use App\Services\V1\AtomStoreService;
 use App\Traits\ApiResponses;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class OrderController extends Controller
 {
@@ -19,10 +21,25 @@ class OrderController extends Controller
         $this->atomStore = $atomStoreService;
     }
 
-    /*
-     * Orders list
-     **/
-    public function index()
+    /**
+     * Get Orders List
+     *
+     * Get all available orders from AtomStore.
+     *
+     * @unauthenticated
+     * @group Managing Orders
+     * @response 200 {
+     * "data": {
+     * "order": {
+     * "orders": [
+     * {
+     * "type": "order",
+     * "id": "77",
+     * ...
+     * }}}}
+     *
+     */
+    public function index(): ResourceCollection|JsonResponse
     {
         $data = $this->atomStore->getOrders();
 
@@ -34,10 +51,24 @@ class OrderController extends Controller
         return OrderCollection::collection($data);
     }
 
-    /*
-     * Show specify order
-     **/
-    public function show(int $id)
+    /**
+     * Get Specify Order
+     *
+     * Get specify order from order list in AtomStore.
+     *
+     * @urlParam id int required
+     * @unauthenticated
+     * @group Managing Orders
+     * @response 200 {
+     * "data": {
+     * "order": {
+     * "type": "order",
+     * "id": "94",
+     * ...
+     * }}}
+     *
+     */
+    public function show(int $id): ResourceCollection|JsonResponse
     {
         $data = $this->atomStore->getOrderById($id);
 

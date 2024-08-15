@@ -15,8 +15,18 @@ class AuthController extends Controller
     use ApiResponses;
 
     /**
-     * Login user, email and password needed
-     * Returning Bearer Token
+     * Login
+     *
+     * Authenticates the user and return user API token.
+     *
+     * @unauthenticated
+     * @group Authentication
+     * @response 200 {"data": {
+     * "token": "{YOUR_AUTH_KEY}"
+     * },
+     * "message": "Authenticated",
+     * "status": 200
+     * }
      */
     public function login(ApiLoginRequest $request): JsonResponse
     {
@@ -42,7 +52,12 @@ class AuthController extends Controller
     }
 
     /**
-     * Logout user, token needed
+     * Logout
+     *
+     * Logout user and destroy API token
+     *
+     * @group Authentication
+     * @response 200 {}
      */
     public function logout(Request $request): JsonResponse
     {

@@ -64,6 +64,21 @@ class AtomStoreService
         return $responseArray;
     }
 
+    public function getProductById(int $productId): array
+    {
+        $responseXml = $this->client->GetProducts($this->authData, $productId, 1);
+        $responseArray = $this->formatResponse($responseXml);
+
+        if (empty($responseArray))
+        {
+            return [
+                'error' => 'Resource not found',
+                'status' => 404,
+            ];
+        }
+
+        return $responseArray;
+    }
 
     public function formatResponse(string $xmlString): array
     {
