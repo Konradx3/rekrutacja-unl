@@ -37,6 +37,8 @@ Tutaj już standardowo, przechodzimy do katalogu projektu i zaciągamy gita ```g
 
 Przechodzimy do terminala i wykonujemy komendę ```composer install```.
 
+Skopiuj plik ```.env.example``` do ```.env``` i uzupełnij dane do bazy.
+
 Komendy które należy wykonać
 ```php
 php artisan migrate
@@ -52,7 +54,7 @@ Link do dokumentacji znajdziesz pod ścieżką /docs
 ```http://unlimitech.localhost/docs```
 
 Tworzone są 2 konta użytkowników, jeden z uprawnieniami admina a drugi bez.
-```
+```php
 // Admin user
 User::create([
     'name' => 'Admin',
@@ -73,6 +75,13 @@ Logujemy się używając emaila i hasła
 otrzymując Bearer Token którym się autoryzujemy.
 
 Reszta jest tutaj ```http://unlimitech.localhost/docs/#managing-orders```
+
+Do pliku .env dodaj zmienne
+```dotenv
+ATOMSTORE_API=XXXXXX
+ATOMSTORE_USER=XXXXXX
+ATOMSTORE_PASSWORD=XXXXXXXX
+```
 
 
 ## Testy
