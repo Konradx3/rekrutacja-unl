@@ -30,12 +30,12 @@ class AtomStoreService
         if ($this->client == null)
         {
             return [
-                'error' => 'Invalid Credentials',
+                'error' => 'Invalid Credentials - AtomStore',
                 'status' => 401,
             ];
         }
 
-        $responseXml = $this->client->GetOrdersSpecified($this->authData, '', 0, 0, 0, '', '');
+        $responseXml = $this->client->GetOrders($this->authData);
         return $this->formatResponse($responseXml);
     }
 
@@ -44,13 +44,13 @@ class AtomStoreService
         if ($this->client == null)
         {
             return [
-                'error' => 'Invalid Credentials',
+                'error' => 'Invalid Credentials - AtomStore',
                 'status' => 401,
             ];
         }
 
         $extraFilter = sprintf('id|%s', $orderId);
-        $responseXml = $this->client->GetOrdersSpecified($this->authData, '', 0, 10, 0, '', '', $extraFilter);
+        $responseXml = $this->client->GetOrdersSpecified($this->authData, '', 0, 0, 0, '', '', $extraFilter);
         $responseArray = $this->formatResponse($responseXml);
 
         if (empty($responseArray))

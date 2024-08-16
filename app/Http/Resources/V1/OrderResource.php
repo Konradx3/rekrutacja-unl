@@ -4,6 +4,8 @@ namespace App\Http\Resources\V1;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class OrderResource extends JsonResource
 {
@@ -18,11 +20,7 @@ class OrderResource extends JsonResource
         {
             $totalProducts = count($this['products']);
             $products = array_map(function ($product) {
-                return [
-                    'code' => $product['code'],
-                    'quantity' => $product['quantity'],
-                    'images' => 'links',
-                ];
+                return new ProductResource($product);
             }, $this['products']);
         }
 
